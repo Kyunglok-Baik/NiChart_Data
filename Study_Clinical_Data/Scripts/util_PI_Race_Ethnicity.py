@@ -1,8 +1,6 @@
 import numpy as np
 import pandas as pd
 import os
-# set current work directory
-# os.chdir("/cbica/projects/ISTAGING/Pipelines/NiChart_Data_Consolidation_2023/scripts/work_in_progress/clin_data_consolidation/Studies/") 
 
 # With mapping the race
 
@@ -80,25 +78,14 @@ if __name__ == "__main__":
     print("Loaded df: %s" % study_name)
 
     
-    ### Option 1: Use concatenated json
+    ### Use concatenated json
     # Load Clinical Race Ethnicity ColNames and Map
-    # json_fpath = "/gpfs/fs001/cbica/home/baikk/Projects/Data_Consolidation_Clinical/"
     with open(dict_path) as json_file:
         json_content = json_file.read()
     meta_dict = json.loads(json_content)
     meta_dict = meta_dict[study_name]
     print('Loaded mapping file')
 
-    # ### Option 2: Use individual json
-    # with open('mappingFiles/map_columns.json') as json_file1:
-    #     json_map_columns = json.load(json_file1)
-    # with open('mappingFiles/map_race.json') as json_file2:
-    #     json_map_race = json_file2.read()
-    # with open('mappingFiles/map_columns.json') as json_file3:
-    #     json_map_ethnicity = json_file3.read()
-    # meta_dict = json_map_columns
-    # meta_dict['Race_Map'] = json.loads(json_map_race)
-    # meta_dict['Ethnicity_Map'] = json.loads(json_map_ethnicity)
     
     fout = clinical_extract_race_singleStudy(dfs, study_name, meta_dict['ID_Col'],
                                               meta_dict['Race_Col'], meta_dict['Race_Map'],
